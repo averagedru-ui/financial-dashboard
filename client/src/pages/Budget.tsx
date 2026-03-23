@@ -9,6 +9,7 @@ import {
   Wallet, ArrowDownCircle, ArrowUpCircle, RefreshCw, Briefcase, User,
 } from "lucide-react";
 import PeptideCalculator from "../components/PeptideCalculator";
+import PlaidConnect from "../components/PlaidConnect";
 import { format, startOfMonth, endOfMonth, isWithinInterval, parseISO, subMonths } from "date-fns";
 import type { Transaction, BudgetSettings } from "@shared/types";
 import { CATEGORIES, CATEGORY_ICONS, CATEGORY_COLORS } from "@shared/types";
@@ -322,6 +323,9 @@ export default function Budget() {
                 )}
               </div>
             </div>
+
+            {/* Plaid connected accounts — personal only */}
+            {area === "personal" && <PlaidConnect onSync={load} />}
 
             {/* Peptide calculator at the bottom of business dashboard */}
             {area === "business" && <PeptideCalculator />}

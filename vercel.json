@@ -10,6 +10,10 @@
   },
   "rewrites": [
     { "source": "/api/budget/transactions/:id", "destination": "/api/budget/transactions/[id]" },
+    { "source": "/api/plaid/link-token", "destination": "/api/plaid/link-token" },
+    { "source": "/api/plaid/exchange-token", "destination": "/api/plaid/exchange-token" },
+    { "source": "/api/plaid/sync", "destination": "/api/plaid/sync" },
+    { "source": "/api/plaid/accounts", "destination": "/api/plaid/accounts" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
