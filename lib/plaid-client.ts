@@ -1,7 +1,14 @@
 export async function getPlaidClient() {
   const { Configuration, PlaidApi, PlaidEnvironments } = await import("plaid");
 
+  const clientId = process.env.PLAID_CLIENT_ID;
+  const secret = process.env.PLAID_SECRET;
   const env = process.env.PLAID_ENV || "sandbox";
+
+  if (!clientId || !secret) {
+    throw new Error(`Plaid credentials missing — PLAID_CLIENT_ID: ${!!clientId}, PLAID_SECRET: ${!!secret}`);
+  }
+
   const basePath =
     env === "production"
       ? PlaidEnvironments.production
@@ -13,8 +20,9 @@ export async function getPlaidClient() {
     basePath,
     baseOptions: {
       headers: {
-        "PLAID-CLIENT-ID": process.env.PLAID_CLIENT_ID,
-        "PLAID-SECRET": process.env.PLAID_SECRET,
+        "PLAID-CLIENT-ID": clientId,
+        "PLAID-SECRET": secret,
+        "Content-Type": "application/json",
       },
     },
   });
