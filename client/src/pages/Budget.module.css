@@ -231,6 +231,144 @@
 }
 .startingEdit:hover { color: var(--text-secondary); }
 
+/* Area toggle (Personal / Business) */
+.areaToggle {
+  display: flex;
+  gap: 4px;
+  background: var(--navy-900);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 4px;
+}
+.areaBtn {
+  flex: 1;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+.areaBtn:hover { background: var(--navy-700); color: var(--text-secondary); }
+.areaBtnActive { background: var(--navy-600) !important; color: var(--accent-blue) !important; }
+
+/* Business header */
+.businessHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a855f7;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* Profit calculator */
+.profitCalc {
+  background: linear-gradient(135deg, #0f1e40 0%, #0d1b38 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.profitCalcHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-blue);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.profitCalcSub {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.profitCalcBody {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.profitInputs {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.profitField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 140px;
+}
+.profitField label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+.profitInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--navy-800);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.profitInput {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  padding: 7px 4px;
+  font-size: 13px;
+  outline: none;
+  width: 90px;
+}
+.profitResults {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+  background: var(--navy-800);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.profitResultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.profitResultHighlight {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Modal personal/business toggle */
+.typeBtnPersonal { background: rgba(59, 126, 248, 0.15) !important; color: var(--accent-blue) !important; }
+.typeBtnBusiness { background: rgba(168, 85, 247, 0.15) !important; color: #a855f7 !important; }
+
 /* Add button */
 .addBtn {
   margin-top: auto;
