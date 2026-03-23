@@ -11,6 +11,7 @@ import {
 import PeptideCalculator from "../components/PeptideCalculator";
 import PlaidConnect from "../components/PlaidConnect";
 import StatementUpload from "../components/StatementUpload";
+import Bills from "../components/Bills";
 import { format, startOfMonth, endOfMonth, isWithinInterval, parseISO, subMonths } from "date-fns";
 import type { Transaction, BudgetSettings } from "@shared/types";
 import { CATEGORIES, CATEGORY_ICONS, CATEGORY_COLORS } from "@shared/types";
@@ -232,6 +233,27 @@ export default function Budget() {
 
         {view === "dashboard" && (
           <div className={styles.dashboard}>
+            {/* Mobile balance card — hidden on desktop (sidebar shows it) */}
+            {area === "personal" && (
+              <div className={styles.mobileBalanceCard}>
+                <div>
+                  <p className={styles.mobileBalanceLabel}>Available Balance</p>
+                  {editingBalance ? (
+                    <div className={styles.inlineEdit}>
+                      <input value={balanceInput} onChange={e => setBalanceInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter") saveBalance(); if (e.key === "Escape") setEditingBalance(false); }} autoFocus className={styles.balanceInput} placeholder="0.00" />
+                      <button onClick={saveBalance} className={styles.inlineEditSave}><Check size={14} /></button>
+                      <button onClick={() => setEditingBalance(false)} className={styles.inlineEditCancel}><X size={14} /></button>
+                    </div>
+                  ) : (
+                    <button className={styles.mobileBalanceAmount} onClick={() => { setBalanceInput(String(settings.currentBalance)); setEditingBalance(true); }}>
+                      {fmt(settings.currentBalance)}
+                    </button>
+                  )}
+                </div>
+                <Wallet size={28} style={{ color: "var(--accent-blue)", opacity: 0.6 }} />
+              </div>
+            )}
+
             {/* Business header */}
             {area === "business" && (
               <div className={styles.businessHeader}>
@@ -324,6 +346,9 @@ export default function Budget() {
                 )}
               </div>
             </div>
+
+            {/* Subscriptions & Bills — personal only */}
+            {area === "personal" && <Bills />}
 
             {/* Statement upload */}
             <StatementUpload onImport={load} defaultMode={area} />

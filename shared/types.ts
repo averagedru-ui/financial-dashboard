@@ -19,6 +19,25 @@ export interface BudgetSettings {
   balanceLastUpdated: string;
 }
 
+export interface Bill {
+  id: string;
+  name: string;
+  amount: number;
+  dueDay: number; // day of month 1-31
+  frequency: "monthly" | "weekly" | "yearly" | "biweekly";
+  category: string;
+  autoPay: boolean;
+  notes?: string;
+  color: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const BILL_COLORS = [
+  "#3b82f6", "#22c55e", "#ef4444", "#f59e0b",
+  "#8b5cf6", "#ec4899", "#06b6d4", "#f97316",
+];
+
 export interface DashboardData {
   settings: BudgetSettings;
   transactions: Transaction[];

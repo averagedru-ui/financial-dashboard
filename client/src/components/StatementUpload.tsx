@@ -10,8 +10,9 @@ import * as api from "../lib/api";
 async function parsePDF(file: File): Promise<ParsedRow[]> {
   const pdfjsLib = await import("pdfjs-dist");
   // Use CDN worker — works in all environments including mobile browsers
+  // unpkg always has every version — cdnjs doesn't carry v5+
   pdfjsLib.GlobalWorkerOptions.workerSrc =
-    `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+    `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
