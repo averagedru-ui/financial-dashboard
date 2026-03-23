@@ -7,8 +7,8 @@ import {
   TrendingUp, TrendingDown, DollarSign, Plus, Edit2, Trash2,
   ChevronLeft, ChevronRight, Search, X, Check, AlertCircle,
   Wallet, ArrowDownCircle, ArrowUpCircle, RefreshCw, Briefcase, User,
-  Calculator,
 } from "lucide-react";
+import PeptideCalculator from "../components/PeptideCalculator";
 import { format, startOfMonth, endOfMonth, isWithinInterval, parseISO, subMonths } from "date-fns";
 import type { Transaction, BudgetSettings } from "@shared/types";
 import { CATEGORIES, CATEGORY_ICONS, CATEGORY_COLORS } from "@shared/types";
@@ -228,14 +228,14 @@ export default function Budget() {
           </div>
         )}
 
-        {/* Business header + profit calculator */}
+        {/* Business header + peptide calculator */}
         {area === "business" && view === "dashboard" && (
           <>
             <div className={styles.businessHeader}>
               <Briefcase size={18} />
               <span>Ready Pep Go</span>
             </div>
-            <ProfitCalculator revenue={totalIncome} costs={totalExpenses} />
+            <PeptideCalculator />
           </>
         )}
 
@@ -384,74 +384,6 @@ export default function Budget() {
   );
 }
 
-// ── Profit Calculator ─────────────────────────────────────────────────────────
-
-function ProfitCalculator({ revenue, costs }: { revenue: number; costs: number }) {
-  const [calcRevenue, setCalcRevenue] = useState(String(revenue.toFixed(2)));
-  const [calcCogs, setCalcCogs] = useState("");
-  const [calcOpex, setCalcOpex] = useState(String(costs.toFixed(2)));
-
-  const rev = parseFloat(calcRevenue) || 0;
-  const cogs = parseFloat(calcCogs) || 0;
-  const opex = parseFloat(calcOpex) || 0;
-  const grossProfit = rev - cogs;
-  const netProfit = grossProfit - opex;
-  const grossMargin = rev > 0 ? (grossProfit / rev) * 100 : 0;
-  const netMargin = rev > 0 ? (netProfit / rev) * 100 : 0;
-
-  return (
-    <div className={styles.profitCalc}>
-      <div className={styles.profitCalcHeader}>
-        <Calculator size={16} />
-        <span>Profit Calculator</span>
-        <span className={styles.profitCalcSub}>— edit fields to model scenarios</span>
-      </div>
-      <div className={styles.profitCalcBody}>
-        <div className={styles.profitInputs}>
-          <div className={styles.profitField}>
-            <label>Revenue</label>
-            <div className={styles.profitInputWrap}>
-              <span>$</span>
-              <input value={calcRevenue} onChange={e => setCalcRevenue(e.target.value)} className={styles.profitInput} placeholder="0.00" />
-            </div>
-          </div>
-          <div className={styles.profitField}>
-            <label>Cost of Goods (COGS)</label>
-            <div className={styles.profitInputWrap}>
-              <span>$</span>
-              <input value={calcCogs} onChange={e => setCalcCogs(e.target.value)} className={styles.profitInput} placeholder="0.00" />
-            </div>
-          </div>
-          <div className={styles.profitField}>
-            <label>Operating Expenses</label>
-            <div className={styles.profitInputWrap}>
-              <span>$</span>
-              <input value={calcOpex} onChange={e => setCalcOpex(e.target.value)} className={styles.profitInput} placeholder="0.00" />
-            </div>
-          </div>
-        </div>
-        <div className={styles.profitResults}>
-          <div className={styles.profitResultRow}>
-            <span>Gross Profit</span>
-            <span style={{ color: grossProfit >= 0 ? "var(--accent-green)" : "var(--accent-red)" }}>{fmtSigned(grossProfit)}</span>
-          </div>
-          <div className={styles.profitResultRow}>
-            <span>Gross Margin</span>
-            <span style={{ color: grossMargin >= 0 ? "var(--accent-green)" : "var(--accent-red)" }}>{pct(grossMargin)}</span>
-          </div>
-          <div className={`${styles.profitResultRow} ${styles.profitResultHighlight}`}>
-            <span>Net Profit</span>
-            <span style={{ color: netProfit >= 0 ? "var(--accent-green)" : "var(--accent-red)" }}>{fmtSigned(netProfit)}</span>
-          </div>
-          <div className={`${styles.profitResultRow} ${styles.profitResultHighlight}`}>
-            <span>Net Margin</span>
-            <span style={{ color: netMargin >= 0 ? "var(--accent-green)" : "var(--accent-red)" }}>{pct(netMargin)}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
