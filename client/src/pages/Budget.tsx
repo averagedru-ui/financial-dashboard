@@ -228,19 +228,16 @@ export default function Budget() {
           </div>
         )}
 
-        {/* Business header + peptide calculator */}
-        {area === "business" && view === "dashboard" && (
-          <>
-            <div className={styles.businessHeader}>
-              <Briefcase size={18} />
-              <span>Ready Pep Go</span>
-            </div>
-            <PeptideCalculator />
-          </>
-        )}
-
         {view === "dashboard" && (
           <div className={styles.dashboard}>
+            {/* Business header */}
+            {area === "business" && (
+              <div className={styles.businessHeader}>
+                <Briefcase size={18} />
+                <span>Ready Pep Go</span>
+              </div>
+            )}
+
             <h1 className={styles.pageTitle}>
               {area === "business" ? "Business — " : ""}{format(selectedMonth, "MMMM yyyy")} Overview
             </h1>
@@ -325,6 +322,9 @@ export default function Budget() {
                 )}
               </div>
             </div>
+
+            {/* Peptide calculator at the bottom of business dashboard */}
+            {area === "business" && <PeptideCalculator />}
           </div>
         )}
 
