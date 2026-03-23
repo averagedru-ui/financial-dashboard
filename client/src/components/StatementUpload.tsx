@@ -8,14 +8,13 @@ import * as api from "../lib/api";
 // ── PDF Parser (Cash App & generic) ─────────────────────────────────────────
 
 async function parsePDF(file: File): Promise<ParsedRow[]> {
-  const pdfjsLib = await import("pdfjs-dist");
-  // Use CDN worker — works in all environments including mobile browsers
-  // unpkg always has every version — cdnjs doesn't carry v5+
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+  // Destructure directly — pdfjs v5 dynamic imports don't expose on the namespace object
+  const { getDocument, GlobalWorkerOptions, version } = await import("pdfjs-dist");
+  GlobalWorkerOptions.workerSrc =
+    `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
 
   const arrayBuffer = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+  const pdf = await getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
 
   let fullText = "";
   for (let i = 1; i <= pdf.numPages; i++) {
