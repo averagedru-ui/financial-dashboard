@@ -416,6 +416,31 @@
   display: flex;
 }
 
+.warningBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #f59e0b;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.warningBanner button {
+  margin-left: auto;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.warningBanner button:hover { background: rgba(245, 158, 11, 0.25); }
+
 /* Dashboard */
 .dashboard { display: flex; flex-direction: column; gap: 20px; }
 
@@ -738,6 +763,17 @@
 .modalClose:hover { color: var(--text-primary); background: var(--navy-700); }
 
 .modalForm { display: flex; flex-direction: column; gap: 14px; }
+
+.skipBalanceRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 0;
+}
+.skipBalanceRow input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
 
 .typeToggle {
   display: flex;

@@ -18,7 +18,7 @@ async function req<T>(path: string, options?: RequestInit): Promise<T> {
 export const getTransactions = () =>
   req<Transaction[]>("/budget/transactions");
 
-export const createTransaction = (data: Omit<Transaction, "id" | "createdAt" | "updatedAt">) =>
+export const createTransaction = (data: Omit<Transaction, "id" | "createdAt" | "updatedAt"> & { skipBalanceUpdate?: boolean }) =>
   req<Transaction>("/budget/transactions", {
     method: "POST",
     body: JSON.stringify(data),

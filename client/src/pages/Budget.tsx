@@ -32,7 +32,7 @@ function pct(n: number) {
 
 export default function Budget() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [settings, setSettings] = useState<BudgetSettings>({
+  const [settings, setSettings] = useState<BudgetSettings & { manualOverride?: boolean }>({
     startingBalance: 0, currentBalance: 0, balanceLastUpdated: new Date().toISOString(),
   });
   const [loading, setLoading] = useState(true);
@@ -109,6 +109,11 @@ export default function Budget() {
     const val = parseFloat(startingInput);
     if (isNaN(val)) return;
     try { const updated = await api.updateSettings({ startingBalance: val }); setSettings(updated); setEditingStarting(false); }
+    catch (e: any) { setError(e.message); }
+  };
+
+  const clearManualOverride = async () => {
+    try { const updated = await api.updateSettings({ manualOverride: false } as any); setSettings(updated); await load(); }
     catch (e: any) { setError(e.message); }
   };
 
@@ -228,6 +233,12 @@ export default function Budget() {
           <div className={styles.errorBanner}>
             <AlertCircle size={16} /> {error}
             <button onClick={() => setError(null)}><X size={14} /></button>
+          </div>
+        )}
+        {(settings as any).manualOverride && area === "personal" && (
+          <div className={styles.warningBanner}>
+            <AlertCircle size={14} /> Balance is manually set — transactions won't auto-update it.
+            <button onClick={clearManualOverride}>Recalculate from transactions</button>
           </div>
         )}
 
@@ -399,11 +410,12 @@ export default function Budget() {
           onClose={() => { setShowAddModal(false); setEditingTx(null); }}
           onSave={async (data) => {
             try {
+              const { skipBalanceUpdate, ...txData } = data as any;
               if (editingTx) {
-                const updated = await api.updateTransaction(editingTx.id, data);
+                const updated = await api.updateTransaction(editingTx.id, txData);
                 setTransactions(prev => prev.map(t => t.id === updated.id ? updated : t));
               } else {
-                const created = await api.createTransaction(data as any);
+                const created = await api.createTransaction({ ...txData, skipBalanceUpdate });
                 setTransactions(prev => [created, ...prev]);
               }
               setSettings(await api.getSettings());
@@ -471,7 +483,7 @@ function TxRow({ tx, onEdit, onDelete, compact = false }: { tx: Transaction; onE
   );
 }
 
-function TxModal({ tx, defaultMode, onClose, onSave }: { tx: Transaction | null; defaultMode: "personal" | "business"; onClose: () => void; onSave: (data: Partial<Transaction>) => Promise<void> }) {
+function TxModal({ tx, defaultMode, onClose, onSave }: { tx: Transaction | null; defaultMode: "personal" | "business"; onClose: () => void; onSave: (data: Partial<Transaction> & { skipBalanceUpdate?: boolean }) => Promise<void> }) {
   const today = format(new Date(), "yyyy-MM-dd");
   const [form, setForm] = useState({
     date: tx?.date?.slice(0, 10) || today,
@@ -483,6 +495,7 @@ function TxModal({ tx, defaultMode, onClose, onSave }: { tx: Transaction | null;
     notes: tx?.notes || "",
     mode: tx?.mode || defaultMode,
   });
+  const [skipBalance, setSkipBalance] = useState(false);
   const [saving, setSaving] = useState(false);
   const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
 
@@ -501,6 +514,7 @@ function TxModal({ tx, defaultMode, onClose, onSave }: { tx: Transaction | null;
         mode: form.mode as "personal" | "business",
         merchant: form.merchant || undefined,
         notes: form.notes || undefined,
+        skipBalanceUpdate: skipBalance,
       });
     } finally { setSaving(false); }
   };
@@ -536,6 +550,12 @@ function TxModal({ tx, defaultMode, onClose, onSave }: { tx: Transaction | null;
           </div>
           <div className={styles.formRow}><label>Merchant</label><input value={form.merchant} onChange={e => set("merchant", e.target.value)} className={styles.formInput} placeholder="Optional" /></div>
           <div className={styles.formRow}><label>Notes</label><input value={form.notes} onChange={e => set("notes", e.target.value)} className={styles.formInput} placeholder="Optional" /></div>
+          {!tx && (
+            <label className={styles.skipBalanceRow}>
+              <input type="checkbox" checked={skipBalance} onChange={e => setSkipBalance(e.target.checked)} />
+              Don't update balance (historical entry)
+            </label>
+          )}
           <div className={styles.modalActions}>
             <button type="button" onClick={onClose} className={styles.cancelBtn}>Cancel</button>
             <button type="submit" disabled={saving} className={styles.saveBtn}>{saving ? "Saving..." : tx ? "Save Changes" : "Add Transaction"}</button>
