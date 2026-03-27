@@ -112,6 +112,14 @@ async function recalcBalance(): Promise<void> {
   }
 }
 
+export async function clearManualOverride(): Promise<BudgetSettings> {
+  const db = await getFirestore();
+  await db.doc(SETTINGS_DOC).set({ manualOverride: false }, { merge: true });
+  await recalcBalance();
+  const doc = await db.doc(SETTINGS_DOC).get();
+  return doc.data() as BudgetSettings;
+}
+
 export async function setManualBalance(amount: number): Promise<BudgetSettings> {
   const db = await getFirestore();
   await db.doc(SETTINGS_DOC).set(

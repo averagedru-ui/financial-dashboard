@@ -3,6 +3,7 @@ import {
   getSettings,
   updateSettings,
   setManualBalance,
+  clearManualOverride,
 } from "../../lib/budget-storage";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -20,8 +21,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method === "PUT") {
       const { startingBalance, currentBalance, manualOverride } = req.body;
 
-      if (manualOverride && currentBalance !== undefined) {
+      if (manualOverride === true && currentBalance !== undefined) {
         const settings = await setManualBalance(Number(currentBalance));
+        return res.status(200).json(settings);
+      }
+
+      if (manualOverride === false) {
+        const settings = await clearManualOverride();
         return res.status(200).json(settings);
       }
 
