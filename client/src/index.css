@@ -5,28 +5,54 @@
 }
 
 :root {
-  --navy-950: #080e1f;
-  --navy-900: #0d1530;
-  --navy-800: #111d3a;
-  --navy-700: #162244;
-  --navy-600: #1e2d56;
-  --navy-500: #243468;
-  --accent-blue: #3b7ef8;
-  --accent-green: #22c55e;
-  --accent-red: #ef4444;
-  --accent-purple: #8b5cf6;
+  /* Page */
+  --bg:           #EFEFEF;
+  --bg-2:         #E8E8E8;
+
+  /* Sidebar */
+  --sidebar-bg:   #141414;
+  --sidebar-item: #1E1E1E;
+  --sidebar-active: #2A2A2A;
+
+  /* Cards */
+  --card-bg:      #FFFFFF;
+  --card-hover:   #F7F7F7;
+  --card-dark:    #141414;
+  --card-orange:  #E84500;
+
+  /* Accent */
+  --accent:       #E84500;
+  --accent-blue:  #E84500;   /* kept for compat — now orange */
+  --accent-green: #16a34a;
+  --accent-red:   #ef4444;
+  --accent-purple:#8b5cf6;
   --accent-amber: #f59e0b;
-  --text-primary: #e8edf8;
-  --text-secondary: #8fa3c8;
-  --text-muted: #506080;
-  --border: #1e2d56;
-  --card-bg: #111d3a;
-  --card-hover: #162244;
+
+  /* Text — on light bg */
+  --text-primary:   #111111;
+  --text-secondary: #555555;
+  --text-muted:     #999999;
+
+  /* Text — on dark cards */
+  --text-dark-primary:   #FFFFFF;
+  --text-dark-secondary: #AAAAAA;
+  --text-dark-muted:     #666666;
+
+  /* Border */
+  --border:  #E2E2E2;
+
+  /* Legacy navy aliases (used in a few places) */
+  --navy-950: #EFEFEF;
+  --navy-900: #F5F5F5;
+  --navy-800: #FFFFFF;
+  --navy-700: #E8E8E8;
+  --navy-600: #DDDDDD;
+  --navy-500: #CCCCCC;
 }
 
 html, body {
   height: 100%;
-  background: var(--navy-950);
+  background: var(--bg);
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
@@ -38,13 +64,10 @@ html, body {
   height: 100%;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track { background: var(--navy-900); }
-::-webkit-scrollbar-thumb { background: var(--navy-600); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--navy-500); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg-2); }
+::-webkit-scrollbar-thumb  { background: #CCCCCC; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #BBBBBB; }
 
 input, select, textarea, button {
   font-family: inherit;
@@ -52,5 +75,4 @@ input, select, textarea, button {
 }
 
 button { cursor: pointer; }
-
-a { color: var(--accent-blue); text-decoration: none; }
+a { color: var(--accent); text-decoration: none; }

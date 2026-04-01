@@ -291,20 +291,20 @@ export default function Budget() {
                   <AreaChart data={areaData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#16a34a" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="#16a34a" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#E84500" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="#E84500" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e2d56" />
-                    <XAxis dataKey="month" tick={{ fill: "#8fa3c8", fontSize: 12 }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fill: "#8fa3c8", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v}`} />
-                    <Tooltip contentStyle={{ background: "#111d3a", border: "1px solid #1e2d56", borderRadius: 8 }} labelStyle={{ color: "#8fa3c8" }} formatter={(v: number, name: string) => [fmt(v), name === "income" ? (area === "business" ? "Revenue" : "Income") : (area === "business" ? "Costs" : "Expenses")]} />
-                    <Area type="monotone" dataKey="income" stroke="#22c55e" fill="url(#incomeGrad)" strokeWidth={2} />
-                    <Area type="monotone" dataKey="expenses" stroke="#ef4444" fill="url(#expGrad)" strokeWidth={2} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#EBEBEB" />
+                    <XAxis dataKey="month" tick={{ fill: "#999999", fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#999999", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v}`} />
+                    <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #E2E2E2", borderRadius: 10, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} labelStyle={{ color: "#111111", fontWeight: 700 }} formatter={(v: number, name: string) => [fmt(v), name === "income" ? (area === "business" ? "Revenue" : "Income") : (area === "business" ? "Costs" : "Expenses")]} />
+                    <Area type="monotone" dataKey="income" stroke="#16a34a" fill="url(#incomeGrad)" strokeWidth={2} />
+                    <Area type="monotone" dataKey="expenses" stroke="#E84500" fill="url(#expGrad)" strokeWidth={2} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -319,8 +319,8 @@ export default function Budget() {
                       <Pie data={categoryData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
                         {categoryData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                       </Pie>
-                      <Tooltip contentStyle={{ background: "#111d3a", border: "1px solid #1e2d56", borderRadius: 8 }} formatter={(v: number) => [fmt(v)]} />
-                      <Legend formatter={value => <span style={{ color: "#8fa3c8", fontSize: 11 }}>{value}</span>} />
+                      <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #E2E2E2", borderRadius: 10, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} formatter={(v: number) => [fmt(v)]} />
+                      <Legend formatter={value => <span style={{ color: "#555555", fontSize: 11 }}>{value}</span>} />
                     </PieChart>
                   </ResponsiveContainer>
                 )}
