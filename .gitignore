@@ -3,5 +3,15 @@ client/node_modules/
 public/
 .env
 *.env.local
+*.env
 dist/
 .DS_Store
+
+# Claude Code local settings (contains API keys)
+.claude/settings.local.json
+
+# Local scripts with hardcoded paths (one-time import utilities)
+scripts/
+
+# Temp files
+tmp_*.json
