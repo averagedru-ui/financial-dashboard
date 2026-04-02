@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Orange background -->
+  <rect width="192" height="192" rx="32" fill="#E84500"/>
+  <!-- Badge shape -->
+  <rect x="8" y="54" width="176" height="84" rx="22" ry="22" fill="white"/>
+  <rect x="15" y="61" width="162" height="70" rx="16" ry="16" fill="#E84500"/>
+  <!-- LEDGR text -->
+  <text
+    x="96"
+    y="100"
+    font-family="Arial Black, Impact, sans-serif"
+    font-size="46"
+    font-weight="900"
+    font-style="italic"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    letter-spacing="-1"
+  >LEDGR</text>
+</svg>
