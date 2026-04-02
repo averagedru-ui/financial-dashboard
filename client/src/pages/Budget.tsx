@@ -141,7 +141,7 @@ export default function Budget() {
       {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
-          <img src="/logo.svg" alt="Ledgr" style={{ height: 28, width: "auto" }} />
+          <img src="/Logo.png.png" alt="Ledgr" style={{ height: 28, width: "auto" }} />
         </div>
 
         {/* Personal / Business toggle */}
