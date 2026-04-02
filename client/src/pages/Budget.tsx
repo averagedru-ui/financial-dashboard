@@ -170,6 +170,9 @@ export default function Budget() {
           <button className={`${styles.navBtn} ${view === "debt" ? styles.navBtnActive : ""}`} onClick={() => setView("debt")}>
             Debt
           </button>
+          <button className={styles.navAddBtn} onClick={() => setShowAddModal(true)} title="Add Transaction">
+            <Plus size={14} />
+          </button>
         </nav>
 
         {/* Month picker */}
@@ -225,9 +228,6 @@ export default function Budget() {
           </div>
         )}
 
-        <button className={styles.addBtn} onClick={() => setShowAddModal(true)}>
-          <Plus size={16} /> Add Transaction
-        </button>
       </aside>
 
       {/* Main */}

@@ -241,7 +241,25 @@
 .areaBtn:hover { background: #2A2A2A; color: #CCCCCC; }
 .areaBtnActive { background: #2A2A2A !important; color: var(--accent) !important; }
 
-/* Add button */
+/* Nav inline add button */
+.navAddBtn {
+  margin-top: 6px;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.navAddBtn:hover { opacity: 0.85; }
+
+/* Add button (unused, kept for safety) */
 .addBtn {
   margin-top: auto;
   background: var(--accent);
@@ -922,7 +940,8 @@
   .sidebarLogo { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
   .monthPicker  { display: none; }
   .sidebarBalance { display: none; }
-  .sidebarNav   { flex-direction: row; }
+  .sidebarNav   { flex-direction: row; align-items: center; }
+  .navAddBtn    { margin-top: 0; }
   .main { padding: 16px; }
   .statGrid { grid-template-columns: repeat(2, 1fr); }
   .txTableHead, .txRow { grid-template-columns: 90px 1fr 80px 80px; }
