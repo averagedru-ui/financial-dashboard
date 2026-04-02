@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Plus, Edit2, Trash2, X, Check, CreditCard, AlertCircle, Repeat } from "lucide-react";
+import { Plus, Edit2, Trash2, X, Check, CreditCard, AlertCircle, Repeat, Ban, RotateCcw } from "lucide-react";
 import type { Bill } from "@shared/types";
 import { CATEGORIES, CATEGORY_ICONS, BILL_COLORS } from "@shared/types";
 import * as api from "../lib/api";
@@ -33,6 +33,7 @@ export default function Bills() {
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<Bill | null>(null);
+  const [showCancelled, setShowCancelled] = useState(false);
 
   const load = async () => {
     try {
@@ -43,8 +44,11 @@ export default function Bills() {
 
   useEffect(() => { load(); }, []);
 
+  const activeBills = useMemo(() => bills.filter(b => !b.cancelled), [bills]);
+  const cancelledBills = useMemo(() => bills.filter(b => b.cancelled), [bills]);
+
   const totalMonthly = useMemo(() =>
-    bills.reduce((s, b) => s + monthlyAmount(b), 0), [bills]);
+    activeBills.reduce((s, b) => s + monthlyAmount(b), 0), [activeBills]);
 
   const totalYearly = totalMonthly * 12;
 
@@ -53,6 +57,17 @@ export default function Bills() {
     try {
       await api.deleteBill(id);
       setBills(prev => prev.filter(b => b.id !== id));
+    } catch (e: any) { setError(e.message); }
+  };
+
+  const toggleCancel = async (bill: Bill) => {
+    try {
+      const updated = await api.updateBill({
+        id: bill.id,
+        cancelled: !bill.cancelled,
+        cancelledAt: !bill.cancelled ? new Date().toISOString() : undefined,
+      });
+      setBills(prev => prev.map(b => b.id === updated.id ? updated : b));
     } catch (e: any) { setError(e.message); }
   };
 
@@ -92,7 +107,7 @@ export default function Bills() {
         </div>
         <div style={{ background: "var(--navy-900)", borderRadius: 8, padding: "10px 16px", flex: 1, minWidth: 120 }}>
           <p style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 3 }}>Active Bills</p>
-          <p style={{ fontSize: 20, fontWeight: 700, color: "var(--accent-blue)" }}>{bills.length}</p>
+          <p style={{ fontSize: 20, fontWeight: 700, color: "var(--accent-blue)" }}>{activeBills.length}</p>
         </div>
       </div>
 
@@ -109,8 +124,8 @@ export default function Bills() {
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {bills.map(bill => (
-            <div key={bill.id} style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--navy-900)", borderRadius: 9, padding: "10px 14px", border: dueSoon(bill.dueDay) ? "1px solid rgba(245,158,11,0.4)" : "1px solid transparent" }}>
+          {activeBills.map(bill => (
+            <div key={bill.id} style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--card-bg)", borderRadius: 9, padding: "10px 14px", border: dueSoon(bill.dueDay) ? "1px solid rgba(245,158,11,0.4)" : "1px solid var(--border)" }}>
               <div style={{ width: 4, height: 36, borderRadius: 2, background: bill.color, flexShrink: 0 }} />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
@@ -127,11 +142,44 @@ export default function Bills() {
                 <p style={{ fontSize: 10, color: "var(--text-muted)" }}>{fmt(monthlyAmount(bill))}/mo</p>
               </div>
               <div style={{ display: "flex", gap: 4 }}>
-                <button onClick={() => { setEditing(bill); setShowModal(true); }} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4 }}><Edit2 size={13} /></button>
-                <button onClick={() => deleteBill(bill.id)} style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", padding: 4 }}><Trash2 size={13} /></button>
+                <button onClick={() => { setEditing(bill); setShowModal(true); }} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4 }} title="Edit"><Edit2 size={13} /></button>
+                <button onClick={() => toggleCancel(bill)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: 4 }} title="Cancel subscription"><Ban size={13} /></button>
+                <button onClick={() => deleteBill(bill.id)} style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", padding: 4 }} title="Delete"><Trash2 size={13} /></button>
               </div>
             </div>
           ))}
+
+          {/* Cancelled bills section */}
+          {cancelledBills.length > 0 && (
+            <div style={{ marginTop: 8 }}>
+              <button
+                onClick={() => setShowCancelled(v => !v)}
+                style={{ background: "none", border: "none", color: "var(--text-muted)", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", gap: 5, padding: "4px 0", marginBottom: 6 }}
+              >
+                <Ban size={12} />
+                {showCancelled ? "Hide" : "Show"} cancelled ({cancelledBills.length})
+              </button>
+              {showCancelled && cancelledBills.map(bill => (
+                <div key={bill.id} style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--card-bg)", borderRadius: 9, padding: "10px 14px", border: "1px solid var(--border)", opacity: 0.5, marginBottom: 6 }}>
+                  <div style={{ width: 4, height: 36, borderRadius: 2, background: "#999", flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                      <span style={{ fontWeight: 600, fontSize: 13, color: "var(--text-muted)", textDecoration: "line-through" }}>{bill.name}</span>
+                      <span style={{ fontSize: 9, background: "rgba(100,100,100,0.15)", color: "#999", borderRadius: 4, padding: "1px 5px", fontWeight: 700 }}>CANCELLED</span>
+                    </div>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
+                      {fmt(bill.amount)} · {freqLabel(bill.frequency)}
+                      {bill.cancelledAt && ` · Cancelled ${new Date(bill.cancelledAt).toLocaleDateString()}`}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", gap: 4 }}>
+                    <button onClick={() => toggleCancel(bill)} style={{ background: "none", border: "none", color: "#22c55e", cursor: "pointer", padding: 4 }} title="Reactivate"><RotateCcw size={13} /></button>
+                    <button onClick={() => deleteBill(bill.id)} style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", padding: 4 }} title="Delete"><Trash2 size={13} /></button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

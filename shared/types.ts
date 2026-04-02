@@ -27,6 +27,8 @@ export interface Bill {
   frequency: "monthly" | "weekly" | "yearly" | "biweekly";
   category: string;
   autoPay: boolean;
+  cancelled?: boolean;
+  cancelledAt?: string;
   notes?: string;
   color: string;
   createdAt: string;
