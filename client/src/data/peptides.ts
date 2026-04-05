@@ -8,6 +8,12 @@ export interface PeptideProduct {
   notes?: string;
 }
 
+export interface PeptideSupplier {
+  id: string;
+  name: string;
+  db: PeptideProduct[];
+}
+
 export const PEPTIDE_CATEGORIES = [
   "All",
   "GLP-1 / Weight Loss",
@@ -177,4 +183,149 @@ export const PEPTIDE_DB: PeptideProduct[] = [
   { sku: "DR5",   name: "Dermorphin",                      spec: "5mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Other" },
   { sku: "PN5",   name: "PNC-27",                          spec: "5mg × 10 vials",   vials: 10, supplierCostPer10: 70,  category: "Other" },
   { sku: "PN10",  name: "PNC-27",                          spec: "10mg × 10 vials",  vials: 10, supplierCostPer10: 110, category: "Other" },
+];
+
+// ── Supplier B ────────────────────────────────────────────────────────────────
+export const PEPTIDE_DB_B: PeptideProduct[] = [
+  // ── Growth Hormone / IGF ─────────────────────────────────────────────────
+  { sku: "H10",    name: "HGH 191AA (Somatropin)",         spec: "10 IU × 10 vials",  vials: 10, supplierCostPer10: 60,  category: "Growth Hormone / IGF" },
+  { sku: "H12",    name: "HGH 191AA (Somatropin)",         spec: "12 IU × 10 vials",  vials: 10, supplierCostPer10: 70,  category: "Growth Hormone / IGF" },
+  { sku: "H15",    name: "HGH 191AA (Somatropin)",         spec: "15 IU × 10 vials",  vials: 10, supplierCostPer10: 80,  category: "Growth Hormone / IGF" },
+  { sku: "H24",    name: "HGH 191AA (Somatropin)",         spec: "24 IU × 10 vials",  vials: 10, supplierCostPer10: 120, category: "Growth Hormone / IGF" },
+  { sku: "H36",    name: "HGH 191AA (Somatropin)",         spec: "36 IU × 10 vials",  vials: 10, supplierCostPer10: 170, category: "Growth Hormone / IGF" },
+  { sku: "CND5",   name: "CJC-1295 Without DAC",           spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 65,  category: "Growth Hormone / IGF" },
+  { sku: "CND10",  name: "CJC-1295 Without DAC",           spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 110, category: "Growth Hormone / IGF" },
+  { sku: "CD5",    name: "CJC-1295 With DAC",              spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 135, category: "Growth Hormone / IGF" },
+  { sku: "SMO5",   name: "Sermorelin",                     spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 55,  category: "Growth Hormone / IGF" },
+  { sku: "SMO10",  name: "Sermorelin",                     spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 90,  category: "Growth Hormone / IGF" },
+  { sku: "G5K",    name: "HCG",                            spec: "5000 IU × 10 vials",vials: 10, supplierCostPer10: 75,  category: "Growth Hormone / IGF" },
+  { sku: "G10K",   name: "HCG",                            spec: "10000 IU × 10 vials",vials:10, supplierCostPer10: 135, category: "Growth Hormone / IGF" },
+  { sku: "IGD",    name: "IGF-DES",                        spec: "2mg × 10 vials",    vials: 10, supplierCostPer10: 50,  category: "Growth Hormone / IGF" },
+  { sku: "TSM5",   name: "Tesamorelin",                    spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 80,  category: "Growth Hormone / IGF" },
+  { sku: "TSM10",  name: "Tesamorelin",                    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 145, category: "Growth Hormone / IGF" },
+  { sku: "TSM15",  name: "Tesamorelin",                    spec: "15mg × 10 vials",   vials: 10, supplierCostPer10: 200, category: "Growth Hormone / IGF" },
+  { sku: "IG01",   name: "IGF-1 LR3",                      spec: "0.1mg × 10 vials",  vials: 10, supplierCostPer10: 35,  category: "Growth Hormone / IGF" },
+  { sku: "IG1",    name: "IGF-1 LR3",                      spec: "1mg × 10 vials",    vials: 10, supplierCostPer10: 170, category: "Growth Hormone / IGF" },
+  { sku: "G5B",    name: "GHRP-6",                         spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 25,  category: "Growth Hormone / IGF" },
+  { sku: "G610B",  name: "GHRP-6",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 42,  category: "Growth Hormone / IGF" },
+  { sku: "IP5B",   name: "Ipamorelin",                     spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Growth Hormone / IGF" },
+  { sku: "IP10B",  name: "Ipamorelin",                     spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 65,  category: "Growth Hormone / IGF" },
+  { sku: "G75B",   name: "HMG",                            spec: "75 IU × 10 vials",  vials: 10, supplierCostPer10: 60,  category: "Growth Hormone / IGF" },
+
+  // ── GLP-1 / Weight Loss ───────────────────────────────────────────────────
+  { sku: "SM5B",   name: "Semaglutide",                    spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "GLP-1 / Weight Loss" },
+  { sku: "SM10B",  name: "Semaglutide",                    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 50,  category: "GLP-1 / Weight Loss" },
+  { sku: "SM15B",  name: "Semaglutide",                    spec: "15mg × 10 vials",   vials: 10, supplierCostPer10: 60,  category: "GLP-1 / Weight Loss" },
+  { sku: "SM20B",  name: "Semaglutide",                    spec: "20mg × 10 vials",   vials: 10, supplierCostPer10: 75,  category: "GLP-1 / Weight Loss" },
+  { sku: "SM30B",  name: "Semaglutide",                    spec: "30mg × 10 vials",   vials: 10, supplierCostPer10: 95,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR5B",   name: "Tirzepatide",                    spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR10B",  name: "Tirzepatide",                    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 50,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR15B",  name: "Tirzepatide",                    spec: "15mg × 10 vials",   vials: 10, supplierCostPer10: 65,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR20B",  name: "Tirzepatide",                    spec: "20mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR30B",  name: "Tirzepatide",                    spec: "30mg × 10 vials",   vials: 10, supplierCostPer10: 95,  category: "GLP-1 / Weight Loss" },
+  { sku: "TR40B",  name: "Tirzepatide",                    spec: "40mg × 10 vials",   vials: 10, supplierCostPer10: 120, category: "GLP-1 / Weight Loss" },
+  { sku: "TR45B",  name: "Tirzepatide",                    spec: "45mg × 10 vials",   vials: 10, supplierCostPer10: 130, category: "GLP-1 / Weight Loss" },
+  { sku: "TR50B",  name: "Tirzepatide",                    spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 145, category: "GLP-1 / Weight Loss" },
+  { sku: "TR60B",  name: "Tirzepatide",                    spec: "60mg × 10 vials",   vials: 10, supplierCostPer10: 165, category: "GLP-1 / Weight Loss" },
+  { sku: "RT5B",   name: "Retatrutide",                    spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 50,  category: "GLP-1 / Weight Loss" },
+  { sku: "RT10B",  name: "Retatrutide",                    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 85,  category: "GLP-1 / Weight Loss" },
+  { sku: "RT15B",  name: "Retatrutide",                    spec: "15mg × 10 vials",   vials: 10, supplierCostPer10: 115, category: "GLP-1 / Weight Loss" },
+  { sku: "RT20B",  name: "Retatrutide",                    spec: "20mg × 10 vials",   vials: 10, supplierCostPer10: 145, category: "GLP-1 / Weight Loss" },
+  { sku: "RT24B",  name: "Retatrutide",                    spec: "24mg × 10 vials",   vials: 10, supplierCostPer10: 170, category: "GLP-1 / Weight Loss" },
+  { sku: "RT30B",  name: "Retatrutide",                    spec: "30mg × 10 vials",   vials: 10, supplierCostPer10: 200, category: "GLP-1 / Weight Loss" },
+  { sku: "RT36B",  name: "Retatrutide",                    spec: "36mg × 10 vials",   vials: 10, supplierCostPer10: 235, category: "GLP-1 / Weight Loss" },
+  { sku: "RT40B",  name: "Retatrutide",                    spec: "40mg × 10 vials",   vials: 10, supplierCostPer10: 250, category: "GLP-1 / Weight Loss" },
+  { sku: "RT50B",  name: "Retatrutide",                    spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 300, category: "GLP-1 / Weight Loss" },
+  { sku: "RT60B",  name: "Retatrutide",                    spec: "60mg × 10 vials",   vials: 10, supplierCostPer10: 350, category: "GLP-1 / Weight Loss" },
+  { sku: "CGL5B",  name: "Cagrilintide",                   spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 110, category: "GLP-1 / Weight Loss" },
+  { sku: "CGL10B", name: "Cagrilintide",                   spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 160, category: "GLP-1 / Weight Loss" },
+  { sku: "MDT10B", name: "Mazdutide",                      spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 160, category: "GLP-1 / Weight Loss" },
+  { sku: "SUR10B", name: "Survodutide",                    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 235, category: "GLP-1 / Weight Loss" },
+  { sku: "5ADB",   name: "AOD-9604",                       spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 90,  category: "GLP-1 / Weight Loss" },
+
+  // ── Recovery & Healing ───────────────────────────────────────────────────
+  { sku: "BC5B",   name: "BPC-157",                        spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Recovery & Healing" },
+  { sku: "BC10B",  name: "BPC-157",                        spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 65,  category: "Recovery & Healing" },
+  { sku: "TB5B",   name: "TB-500",                         spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 60,  category: "Recovery & Healing" },
+  { sku: "TB10B",  name: "TB-500",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 110, category: "Recovery & Healing" },
+  { sku: "ET10B",  name: "Epithalon",                      spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 45,  category: "Recovery & Healing" },
+  { sku: "ET50B",  name: "Epithalon",                      spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 110, category: "Recovery & Healing" },
+  { sku: "2S10B",  name: "SS-31",                          spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 70,  category: "Recovery & Healing" },
+  { sku: "2S50B",  name: "SS-31",                          spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 290, category: "Recovery & Healing" },
+  { sku: "RA10B",  name: "Ara-290",                        spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Recovery & Healing" },
+  { sku: "KPV5B",  name: "KPV",                            spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Recovery & Healing" },
+  { sku: "KPV10B", name: "KPV",                            spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 50,  category: "Recovery & Healing" },
+  { sku: "VIP5B",  name: "VIP",                            spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 70,  category: "Recovery & Healing" },
+  { sku: "VIP10B", name: "VIP",                            spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 120, category: "Recovery & Healing" },
+
+  // ── Cognitive & Nootropic ────────────────────────────────────────────────
+  { sku: "SK5B",   name: "Selank",                         spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "SK11B",  name: "Selank",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Cognitive & Nootropic" },
+  { sku: "XA5B",   name: "Semax",                          spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "XA11B",  name: "Semax",                          spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 45,  category: "Cognitive & Nootropic" },
+  { sku: "DS5B",   name: "DSIP",                           spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "DS15B",  name: "DSIP",                           spec: "15mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Cognitive & Nootropic" },
+  { sku: "PI5B",   name: "Pinealon",                       spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "PI10B",  name: "Pinealon",                       spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Cognitive & Nootropic" },
+  { sku: "PI20B",  name: "Pinealon",                       spec: "20mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Cognitive & Nootropic" },
+  { sku: "CBL60B", name: "Cerebrolysin",                   spec: "60mg × 6 vials",    vials: 6,  supplierCostPer10: 25,  category: "Cognitive & Nootropic" },
+  { sku: "NJ100B", name: "NAD+",                           spec: "100mg × 10 vials",  vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "NJ500B", name: "NAD+",                           spec: "500mg × 10 vials",  vials: 10, supplierCostPer10: 60,  category: "Cognitive & Nootropic" },
+  { sku: "NJ1000B",name: "NAD+",                           spec: "1000mg × 10 vials", vials: 10, supplierCostPer10: 120, category: "Cognitive & Nootropic" },
+  { sku: "5AMB",   name: "5-Amino-1MQ",                   spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 40,  category: "Cognitive & Nootropic" },
+  { sku: "50AMB",  name: "5-Amino-1MQ",                   spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 100, category: "Cognitive & Nootropic" },
+
+  // ── Beauty & Longevity ───────────────────────────────────────────────────
+  { sku: "CU50B",  name: "GHK-Cu",                         spec: "50mg × 10 vials",   vials: 10, supplierCostPer10: 30,  category: "Beauty & Longevity" },
+  { sku: "CU100B", name: "GHK-Cu",                         spec: "100mg × 10 vials",  vials: 10, supplierCostPer10: 40,  category: "Beauty & Longevity" },
+  { sku: "GTT600B",name: "Glutathione",                    spec: "600mg × 10 vials",  vials: 10, supplierCostPer10: 40,  category: "Beauty & Longevity" },
+  { sku: "GTT1200B",name:"Glutathione",                    spec: "1200mg × 10 vials", vials: 10, supplierCostPer10: 55,  category: "Beauty & Longevity" },
+  { sku: "GTT1500B",name:"Glutathione",                    spec: "1500mg × 10 vials", vials: 10, supplierCostPer10: 60,  category: "Beauty & Longevity" },
+  { sku: "NP810B", name: "Snap-8",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 40,  category: "Beauty & Longevity" },
+  { sku: "LEMONB", name: "Lemon Bottle",                   spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 60,  category: "Beauty & Longevity" },
+  { sku: "LC120B", name: "LC-120",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Beauty & Longevity" },
+  { sku: "LC216B", name: "LC-216",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Beauty & Longevity" },
+
+  // ── Immune & Thymic ──────────────────────────────────────────────────────
+  { sku: "TY10B",  name: "Thymalin",                       spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 50,  category: "Immune & Thymic" },
+  { sku: "TA5B",   name: "Thymosin Alpha-1",               spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 75,  category: "Immune & Thymic" },
+  { sku: "TA10B",  name: "Thymosin Alpha-1",               spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 135, category: "Immune & Thymic" },
+  { sku: "MS10B",  name: "MOTS-c",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 55,  category: "Immune & Thymic" },
+  { sku: "MS40B",  name: "MOTS-c",                         spec: "40mg × 10 vials",   vials: 10, supplierCostPer10: 150, category: "Immune & Thymic" },
+  { sku: "L375B",  name: "LL-37",                          spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 75,  category: "Immune & Thymic" },
+  { sku: "322B",   name: "SLU-PP-322",                     spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 100, category: "Immune & Thymic" },
+
+  // ── Sexual Health ────────────────────────────────────────────────────────
+  { sku: "MT1B",   name: "MT-1",                           spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 45,  category: "Sexual Health" },
+  { sku: "ML10B",  name: "MT-2 (Melanotan 2)",             spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 45,  category: "Sexual Health" },
+  { sku: "P41B",   name: "PT-141",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 50,  category: "Sexual Health" },
+  { sku: "OT2B",   name: "Oxytocin",                       spec: "2mg × 10 vials",    vials: 10, supplierCostPer10: 30,  category: "Sexual Health" },
+  { sku: "KS5B",   name: "Kisspeptin-10",                  spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 50,  category: "Sexual Health" },
+  { sku: "KS10B",  name: "Kisspeptin-10",                  spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Sexual Health" },
+
+  // ── Combo Products ───────────────────────────────────────────────────────
+  { sku: "BB10B",  name: "BPC-157 5mg + TB-500 5mg",       spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Combo Products" },
+  { sku: "BB20B",  name: "BPC-157 10mg + TB-500 10mg",     spec: "20mg × 10 vials",   vials: 10, supplierCostPer10: 135, category: "Combo Products" },
+  { sku: "CP10B",  name: "CJC-1295 5mg + Ipamorelin 5mg",  spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Combo Products" },
+  { sku: "CS5B",   name: "Cagrilintide 2.5mg + Sema 2.5mg",spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 80,  category: "Combo Products" },
+  { sku: "CS10B",  name: "Cagrilintide 5mg + Sema 5mg",    spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 135, category: "Combo Products" },
+  { sku: "BBG70B", name: "BPC-157 + GHK-Cu + TB-500",      spec: "70mg × 10 vials",   vials: 10, supplierCostPer10: 150, category: "Combo Products" },
+  { sku: "KLOWB",  name: "BPC-157 + GHK-Cu + TB-500 + KPV",spec: "80mg × 10 vials",  vials: 10, supplierCostPer10: 190, category: "Combo Products" },
+  { sku: "SHBB",   name: "Super Human Blend",               spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Combo Products" },
+  { sku: "HHBB",   name: "Healthy Hair Skin Nails Blend",   spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 80,  category: "Combo Products" },
+  { sku: "GLOW50B",name: "GHK-Cu 35mg + TB-500 10mg + BPC 5mg",spec:"50mg × 10 vials",vials:10, supplierCostPer10: 130, category: "Combo Products" },
+  { sku: "GKP70B", name: "GHK-Cu 50mg + KPV 10mg + BPC 10mg",spec:"70mg × 10 vials",  vials:10, supplierCostPer10: 110, category: "Combo Products" },
+
+  // ── Other ────────────────────────────────────────────────────────────────
+  { sku: "DR5B",   name: "Dermorphin",                     spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 50,  category: "Other" },
+  { sku: "WA3B",   name: "Bac Water",                      spec: "3ml × 10 vials",    vials: 10, supplierCostPer10: 10,  category: "Other" },
+  { sku: "WA10B",  name: "Bac Water",                      spec: "10ml × 10 vials",   vials: 10, supplierCostPer10: 15,  category: "Other" },
+  { sku: "PC5B",   name: "PNC-27",                         spec: "5mg × 10 vials",    vials: 10, supplierCostPer10: 80,  category: "Other" },
+  { sku: "PC10B",  name: "PNC-27",                         spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 130, category: "Other" },
+  { sku: "B12B",   name: "B12",                            spec: "10mg × 10 vials",   vials: 10, supplierCostPer10: 40,  category: "Other" },
+];
+
+export const PEPTIDE_SUPPLIERS: PeptideSupplier[] = [
+  { id: "A", name: "Supplier A", db: PEPTIDE_DB },
+  { id: "B", name: "Supplier B", db: PEPTIDE_DB_B },
 ];

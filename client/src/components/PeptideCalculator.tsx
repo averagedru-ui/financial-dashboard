@@ -5,7 +5,7 @@ import {
   ShoppingCart, X, Check, Truck,
 } from "lucide-react";
 import { format } from "date-fns";
-import { PEPTIDE_DB, PEPTIDE_CATEGORIES, type PeptideProduct } from "../data/peptides";
+import { PEPTIDE_CATEGORIES, PEPTIDE_SUPPLIERS, type PeptideProduct } from "../data/peptides";
 import * as api from "../lib/api";
 import styles from "./PeptideCalculator.module.css";
 
@@ -29,6 +29,7 @@ function parseVialSize(spec: string): string {
 }
 
 export default function PeptideCalculator() {
+  const [supplierId, setSupplierId] = useState("A");
   const [category, setCategory] = useState("All");
   const [vialSize, setVialSize] = useState("All");
   const [search, setSearch] = useState("");
@@ -36,17 +37,19 @@ export default function PeptideCalculator() {
   const [showCatalog, setShowCatalog] = useState(true);
   const [showOrderModal, setShowOrderModal] = useState(false);
 
+  const activeSupplier = PEPTIDE_SUPPLIERS.find(s => s.id === supplierId) ?? PEPTIDE_SUPPLIERS[0];
+  const PEPTIDE_DB = activeSupplier.db;
+
   // Build unique vial size list from the DB
   const vialSizes = useMemo(() => {
     const sizes = new Set(PEPTIDE_DB.map(p => parseVialSize(p.spec)));
-    // Sort numerically then alphabetically
     return ["All", ...Array.from(sizes).sort((a, b) => {
       const numA = parseFloat(a);
       const numB = parseFloat(b);
       if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
       return a.localeCompare(b);
     })];
-  }, []);
+  }, [PEPTIDE_DB]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -95,7 +98,17 @@ export default function PeptideCalculator() {
         <div className={styles.headerLeft}>
           <Package size={18} />
           <span>Peptide Profit Calculator</span>
-          <span className={styles.headerSub}>— Tianjin Hengyuanxing supplier pricing</span>
+          <div className={styles.supplierToggle}>
+            {PEPTIDE_SUPPLIERS.map(s => (
+              <button
+                key={s.id}
+                className={`${styles.supplierBtn} ${supplierId === s.id ? styles.supplierBtnActive : ""}`}
+                onClick={() => { setSupplierId(s.id); setCart([]); setCategory("All"); setVialSize("All"); }}
+              >
+                {s.name}
+              </button>
+            ))}
+          </div>
         </div>
         <div className={styles.headerActions}>
           {cart.length > 0 && (
